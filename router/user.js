@@ -21,10 +21,11 @@ router.post("/login", async function(req, res){
    req.body.password)
     const token = await  user.generateAuthToken()
     res.json({
+        token:token,    
         success:true,
         user:user
     });
-    console.log("success")
+    console.log("   success")
    
    })
    
