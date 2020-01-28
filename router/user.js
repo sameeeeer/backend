@@ -7,27 +7,27 @@ const auth = require('../middleware/auth');
 router.post('/register', (req, response) => { // /registraion url path (req)-> api ma aaeko req | (response)-> action
     console.log(req.body); // shows the parameters that the user sends from body 
     var mydata = new User(req.body); //sends the req from client to our model user
-    mydata.save().then(function () { //mydata.save initialies the data sending process though the model
+    mydata.save().then(function() { //mydata.save initialies the data sending process though the model
         response.send(mydata); //client gets the response
 
-    }).catch(function (e) { //if data is not saved catch triggers the reason why
-        Respond.json({ success: message });
+    }).catch(function(e) { //if data is not saved catch triggers the reason why
+        response.send(e);
     })
 })
 
-router.post("/login", async function (req, res) {
+router.post("/login", async function(req, res){
 
     const user = await User.checkCrediantialsDb(req.body.email,
-        req.body.password)
-    const token = await user.generateAuthToken()
+   req.body.password)
+    const token = await  user.generateAuthToken()
     res.json({
-        token: token,
-        success: true,
-        user: user
+        token:token,    
+        success:true,
+        user:user
     });
     console.log("   success")
-
-})
+   
+   })
 
 
 //   router.post('/login', async function(req, response) {
@@ -59,18 +59,12 @@ router.get('/urs', auth, function (req, res) {
 
     });
 })
-router.post('/profile', (req, res) => {
-    User.findById({
-        _id: req.body._id
-    }, function (err, user) {
-        if (err) {
-            res.json({ 'Success': 'Post Failed Something is wrong. Log in first!!1' });
-        } else if (!user) {
-            res.json('User not found ');
-        } else if (user) {
-            res.json({ user: user });
-        }
-    });
+
+router.get('/profile/:_id', (req, res) => {
+    User.findById(req.params._id
+    ).then(function(userdetail){
+        res.send(userdetail)
+    })
 });
 //yaha sama  get ko code 
 
