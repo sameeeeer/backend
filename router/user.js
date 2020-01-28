@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../models/user')
 const router = new express.Router()
 const auth = require('../middleware/auth');
+const upload = require('../controller/uploadfile');
 
 
 router.post('/register', (req, response) => { // /registraion url path (req)-> api ma aaeko req | (response)-> action
@@ -97,6 +98,23 @@ router.get('/test_student', auth, function (req, res) {
         res.status(401).send({ error: 'Please authenticate.' })
     }
 
+})
+
+router.put("/users/:id/photo/upload", upload, auth, (req,res) => {
+    req.files.map(function(img){
+        var image = img.filename
+
+        User.findByIdAndUpdate(req.params.id, {'image': image},{upsert: true},(err, docs) =>{
+            if(err){
+                return res
+                .status(500)
+                .send({error: "unsuccessful"})
+            }else {
+                console.log(image)
+                res.send("Profile Picture Update successfull !"+docs)
+            }
+        })
+    })
 })
 router.get("/admin_dashboard", auth, function (req, res) {
     user_type = req.user_type
