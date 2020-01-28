@@ -7,28 +7,28 @@ const auth = require('../middleware/auth');
 router.post('/register', (req, response) => { // /registraion url path (req)-> api ma aaeko req | (response)-> action
     console.log(req.body); // shows the parameters that the user sends from body 
     var mydata = new User(req.body); //sends the req from client to our model user
-    mydata.save().then(function() { //mydata.save initialies the data sending process though the model
+    mydata.save().then(function () { //mydata.save initialies the data sending process though the model
         response.send(mydata); //client gets the response
 
-    }).catch(function(e) { //if data is not saved catch triggers the reason why
-        response.send(e);
+    }).catch(function (e) { //if data is not saved catch triggers the reason why
+        Respond.json({ success: message });
     })
 })
 
-router.post("/login", async function(req, res){
+router.post("/login", async function (req, res) {
 
     const user = await User.checkCrediantialsDb(req.body.email,
-   req.body.password)
-    const token = await  user.generateAuthToken()
+        req.body.password)
+    const token = await user.generateAuthToken()
     res.json({
-        token:token,    
-        success:true,
-        user:user
+        token: token,
+        success: true,
+        user: user
     });
     console.log("   success")
-   
-   })
-   
+
+})
+
 
 //   router.post('/login', async function(req, response) {
 //     console.log(req.body);
@@ -40,7 +40,7 @@ router.post("/login", async function(req, res){
 //             response.statusCode = 200;
 //             response.setHeader('Content-Type', 'application/json') //what format the response is being sent in
 //             response.json('Successfully Logged in');
-            
+
 //         } else {
 //             res.send('email and password did not match');
 //             console.log('email and password did not match')
@@ -48,56 +48,70 @@ router.post("/login", async function(req, res){
 //     })
 // })
 //get ko lagi code
-router.get('/urs',auth,function(req,res){
-    User.find().then(function(user_data){
+router.get('/urs', auth, function (req, res) {
+    User.find().then(function (user_data) {
         res.send(user_data);
 
-    
-}).catch(function(e){
-    
-            res.send(e)
-        
+
+    }).catch(function (e) {
+
+        res.json(e)
+
     });
 })
+router.post('/profile', (req, res) => {
+    User.findById({
+        _id: req.body._id
+    }, function (err, user) {
+        if (err) {
+            res.json({ 'Success': 'Post Failed Something is wrong. Log in first!!1' });
+        } else if (!user) {
+            res.json('User not found ');
+        } else if (user) {
+            res.json({ user: user });
+        }
+    });
+});
 //yaha sama  get ko code 
 
 
-//yaha bata taltira delete ko 
-router.delete('/del/:id',function(req,res){
-    User.findByIdAndDelete(req.params.id).then(function(){
 
-    }).catch(function(){
+//yaha bata taltira delete ko 
+router.delete('/del/:id', function (req, res) {
+    User.findByIdAndDelete(req.params.id).then(function () {
+
+    }).catch(function () {
         res.send(e)
     })
 });
 
-router.put('/updates/:id',function(req,res){
-    User.findOneAndUpdate({_id :req.params.id},req.body).then(function(){
+router.put('/updates/:id', function (req, res) {
+    User.findOneAndUpdate({ _id: req.params.id }, req.body).then(function () {
         res.send("updated")
-    }).catch(function(e){
+    }).catch(function (e) {
         res.send(e)
     })
 })
 
-router.get('/test_student',auth,function(req,res){
-user_type = req.user_type
-//console.log(user_type)
-    if(user_type=="student"){
+router.get('/test_student', auth, function (req, res) {
+    user_type = req.user_type
+    //console.log(user_type)
+    if (user_type == "student") {
         res.send("Welcome student")
     }
-    else{
-    res.status(401).send({ error: 'Please authenticate.' })
+    else {
+        res.status(401).send({ error: 'Please authenticate.' })
     }
-    
-    })
-    router.get("/admin_dashboard" , auth, function(req, res){
-        user_type = req.user_type
-        if(user_type=="admin"){
-            res.send("hello admin")
-        }
-        else{
-            res.send("please authenticate..");
-        }
-    })
+
+})
+router.get("/admin_dashboard", auth, function (req, res) {
+    user_type = req.user_type
+    if (user_type == "admin") {
+        res.send("hello admin")
+    }
+    else {
+        res.send("please authenticate..");
+    }
+})
 
 module.exports = router
