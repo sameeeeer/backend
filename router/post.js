@@ -7,4 +7,13 @@ router.post("/createpost",[upload],postController.addpost)
 router.get("/findpost",postController.findpost)
 router.get("/findpostById/:_id",postController.findpostById)
 
+//router to get post added by a user
+router.get('/users/:id/myposts', auth, (req, res) => {
+    var id = req.params.id  
+    post.find({'user_id': id}).then(function(result){
+        res.send(result)
+    }).catch(function(e){
+        res.send(e)
+    })
+})
 module.exports = router

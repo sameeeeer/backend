@@ -88,6 +88,8 @@ router.put('/updates/:id', function (req, res) {
     })
 })
 
+
+
 router.get('/test_student', auth, function (req, res) {
     user_type = req.user_type
     //console.log(user_type)
@@ -125,5 +127,7 @@ router.get("/admin_dashboard", auth, function (req, res) {
         res.send("please authenticate..");
     }
 })
+
+
 
 module.exports = router
