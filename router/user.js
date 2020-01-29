@@ -109,11 +109,12 @@ user_type = req.user_type
         }
     })
 
-    router.put("/users/:id/photo/upload", upload, auth, (req,res) => {
+    router.put("/users/photo/upload/:id", upload, (req,res) => {
+        console.log(req.params.id)
         req.files.map(function(img){
             var image = img.filename
     
-            User.findByIdAndUpdate(req.params.id, {'image': image},{upsert: true},(err, docs) =>{
+            User.findByIdAndUpdate(req.params.id, {'file': image},{upsert: true},(err, docs) =>{
                 if(err){
                     return res
                     .status(500)
