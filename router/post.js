@@ -6,13 +6,8 @@ const postController = require("../controller/PostsController")
 router.post("/createpost",[upload],postController.addpost)
 router.get("/findpost",postController.findpost)
 router.get("/findpostById/:_id",postController.findpostById)
+router.get("/findpostbyuserid/:_id",postController.findPostByUserId)
+router.delete("/deletepost/:_id",postController.deleteById)
 
-router.delete('/delete/:id',function(req,res){
-    post.findByIdAndDelete(req.params.id).then(function(){
-
-    }).catch(function(){
-        res.send(e)
-    })
-});
 
 module.exports = router

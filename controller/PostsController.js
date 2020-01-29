@@ -28,8 +28,7 @@ exports. addpost =(req, res) => {
      
     //function for getting post
 exports.findpost= async(req, res) => {
-    console.log("sak");
-   post.find().then(function(findAllpost) {
+   post.find().populate('user_id').then(function(findAllpost) {
        
         res.send(findAllpost).catch(function(e){
             res.send(e)
@@ -39,8 +38,8 @@ exports.findpost= async(req, res) => {
 
      
     //function for getting post
-exports.findPostById= async(req, res) => {
-   post.find({user_id:req.params.user_id}).then(function(findAllpost) {
+exports.findPostByUserId= async(req, res) => {
+   post.find({user_id:req.params._id}).populate('user_id').then(function(findAllpost) {
         res.send(findAllpost).catch(function(e){
             res.send(e)
         })
@@ -55,3 +54,11 @@ exports.findpostById= (req, res) => {
         })
       })
   }
+
+  exports.deleteById = (function(req,res){
+    post.findByIdAndDelete(req.params.id).then(function(){
+
+    }).catch(function(){
+        res.send(e)
+    })
+});

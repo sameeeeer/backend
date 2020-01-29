@@ -18,7 +18,7 @@ const post = mongoose.model('post', {
     },
     category:{
         type: String,
-        require:ture
+        require:true
     }
     
   })
