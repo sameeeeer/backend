@@ -57,7 +57,7 @@ exports.findpostById= (req, res) => {
 
   exports.deleteById = (function(req,res){
     post.findByIdAndDelete(req.params.id).then(function(){
-
+        res.send("deleted");
     }).catch(function(){
         res.send(e)
     })
