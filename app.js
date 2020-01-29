@@ -5,11 +5,13 @@ const post = require('./router/post')
 const path = require("path");
 const bodyParser = require('body-parser');
 const publicdirectory= path.join(__dirname,'public');
+const cors = require('cors');
+const app = express();
+app.use(cors());
 
 
 
 
-const app = express()
 app.use(bodyParser.urlencoded({extended:false}))
 
 app.use(express.static(publicdirectory));

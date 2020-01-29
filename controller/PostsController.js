@@ -44,5 +44,3 @@ exports.findpostById= (req, res) => {
         })
       })
   }
-
-  

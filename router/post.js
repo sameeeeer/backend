@@ -7,13 +7,12 @@ router.post("/createpost",[upload],postController.addpost)
 router.get("/findpost",postController.findpost)
 router.get("/findpostById/:_id",postController.findpostById)
 
-//router to get post added by a user
-router.get('/users/:id/myposts', auth, (req, res) => {
-    var id = req.params.id  
-    post.find({'user_id': id}).then(function(result){
-        res.send(result)
-    }).catch(function(e){
+router.delete('/delete/:id',function(req,res){
+    post.findByIdAndDelete(req.params.id).then(function(){
+
+    }).catch(function(){
         res.send(e)
     })
-})
+});
+
 module.exports = router
