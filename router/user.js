@@ -81,7 +81,8 @@ router.delete('/del/:id',function(req,res){
 });
 
 router.put('/updates/:id',function(req,res){
-    User.findOneAndUpdate({_id :req.params.id},req.body).then(function(){
+    console.log(req.body)
+    User.findByIdAndUpdate(req.params.id,req.body).then(function(){
         res.send("updated")
     }).catch(function(e){
         res.send(e)

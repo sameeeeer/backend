@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 const post = mongoose.model('post', {    
 
+    user_id: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'user',
+        trim:true
+    },
     status: {
         type: String,
         require:true,
@@ -11,13 +16,10 @@ const post = mongoose.model('post', {
         require:true,
         trim: true
     },
-    
-    name:{
+    category:{
         type: String,
-        require:true,
-        trim: true
+        require:ture
     }
-    
     
   })
 

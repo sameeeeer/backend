@@ -7,9 +7,10 @@ exports. addpost =(req, res) => {
         console.log(req.files)
         req.files.map(function(items){
             const Post = new post({
+                user_id:req.body.user_id,
                 status:req.body.status,
-                name:req.body.name,
-                image:items.filename 
+                image:items.filename,
+                category:req.body.category 
                
             }
             
@@ -30,6 +31,16 @@ exports.findpost= async(req, res) => {
     console.log("sak");
    post.find().then(function(findAllpost) {
        
+        res.send(findAllpost).catch(function(e){
+            res.send(e)
+        })
+      })
+  }
+
+     
+    //function for getting post
+exports.findPostById= async(req, res) => {
+   post.find({user_id:req.params.user_id}).then(function(findAllpost) {
         res.send(findAllpost).catch(function(e){
             res.send(e)
         })
