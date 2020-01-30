@@ -62,3 +62,11 @@ exports.findpostById= (req, res) => {
         res.send(e)
     })
 });
+
+exports.updatepost = (function(req, res) {
+    post.findByIdAndUpdate(req.params.id, req.body).then(function () {
+        res.send("updated")
+    }).catch(function (e) {
+        res.send(e)
+    })
+})

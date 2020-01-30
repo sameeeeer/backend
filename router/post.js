@@ -8,6 +8,7 @@ router.get("/findpost",postController.findpost)
 router.get("/findpostById/:_id",postController.findpostById)
 router.get("/findpostbyuserid/:_id",postController.findPostByUserId)
 router.delete("/deletepost/:id",postController.deleteById)
+router.put("/postupdate/:id",postController.updatepost)
 
 
 module.exports = router
