@@ -92,7 +92,7 @@ router.put("/upload/:id",[upload], function(req,res){
 
         req.files.map(function (img) {
             var image = img.filename
-    
+
             User.findByIdAndUpdate(req.params.id, { 'file': image }, { upsert: true }, (err, docs) => {
                 if (err) {
                     return res
