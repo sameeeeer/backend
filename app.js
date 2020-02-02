@@ -16,6 +16,12 @@ app.use(express.json())
 app.use(taskrouter)
 app.use(post)
 
+app.get('/logout',auth,(req,res)=>{
+    req.user.deleteToken(req.token,(err,user)=>{
+        if(err) return res.status(400).send(err);
+        res.sendStatus(200)
+    })
+})
 
 app.use(taskrouter)
 app.listen("3000");
