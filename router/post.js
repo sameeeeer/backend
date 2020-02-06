@@ -12,5 +12,7 @@ router.get("/findpostById/:_id",postController.findpostById)
 router.get("/findpostbyuserid/:_id",postController.findPostByUserId)
 router.delete("/deletepost/:id",postController.deleteById)
 router.put("/postupdate/:id",postController.updatepost)
+router.get("/singleFeed/:id",postController.getSingleFeed)
+
 
 module.exports = router

@@ -19,7 +19,9 @@ router.post('/register', (req, response) => { // /registraion url path (req)-> a
 router.post("/login", async function (req, res) {
 
     const user = await User.checkCrediantialsDb(req.body.email,
-        req.body.password)
+        req.body.password);
+        console.log(user)
+        if(user!=null){
     const token = await user.generateAuthToken()
     res.json({
         token: token,
@@ -27,9 +29,17 @@ router.post("/login", async function (req, res) {
         user: user
     });
     console.log("success")
-
+}
+else{
+    res.json({
+        success:false
+    })
+}
 })
-
+router.get("/logincheck",auth,async(req,res)=>{
+    res.send(req.user)
+    console.log(req.user)
+})
 
 //get ko lagi code
 router.get('/urs', function (req, res) {
@@ -66,27 +76,20 @@ router.put('/updates/:id', function (req, res) {
         res.send(e)
     })
 })
+router.post('/logout',auth , async(req,res)=> {
+    try{
+        req.user.tokens = res.user.tokens.filter((token)=>{
+        return token.token !== req.token
+    })
+    await req.user.save()
+    res.send()
+}
+catch (e) {
+    res.status(500).send
+}
+});
 
-router.get('/test_student', auth, function (req, res) {
-    user_type = req.user_type
-    //console.log(user_type)
-    if (user_type == "student") {
-        res.send("Welcome student")
-    }
-    else {
-        res.status(401).send({ error: 'Please authenticate.' })
-    }
 
-})
-router.get("/admin_dashboard", auth, function (req, res) {
-    user_type = req.user_type
-    if (user_type == "admin") {
-        res.send("hello admin")
-    }
-    else {
-        res.send("please authenticate..");
-    }
-})
 
 router.put("/upload/:id",[upload], function(req,res){
 
