@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require('../models/user')
+const Comment = require('../models/comment')
 const router = new express.Router()
 const auth = require('../middleware/auth');
 const upload = require('../controller/uploadfile');
