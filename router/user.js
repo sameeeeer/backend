@@ -37,6 +37,7 @@ else{
     })
 }
 })
+
 router.get("/logincheck",auth,async(req,res)=>{
     res.send(req.user)
     console.log(req.user)
@@ -110,6 +111,15 @@ router.put("/upload/:id",[upload], function(req,res){
         })
     }
 )
+router.get("/admin_dashboard" , auth, function(req, res){
+    user_type = req.user_type
+    if(user_type=="admin"){
+        res.send("hello admin")
+    }
+    else{
+        res.send("please authenticate..");
+    }
+})
 
 
 module.exports = router

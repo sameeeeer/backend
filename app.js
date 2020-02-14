@@ -25,3 +25,4 @@ app.get('/logout',auth,(req,res)=>{
 
 app.use(taskrouter)
 app.listen("3000");
+console.log('Server runs at http://localhost:' + 3000);

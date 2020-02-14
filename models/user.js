@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     images: {
         type: String
     },
+    user_type:{
+        type: String,
+        default:"user"
+    },
     tokens: [{
         token: {
             type: String,
