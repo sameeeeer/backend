@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     images: {
-        type: String
+        type: String,
+        default:"naruto.jpg"
     },
     user_type:{
         type: String,
