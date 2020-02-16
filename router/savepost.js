@@ -20,7 +20,7 @@ router.post('/savepost', (req,res)=>{
 })
 
 //get saved rent
-router.get('/savepost/:id/getsavedpost', (req,res) => {
+router.get('/getsavedpost/:id', (req,res) => {
     var id = req.params.id
     ModelSave.find({user_id: id}).populate('post_id').populate('user_id').then(function(result){
         res.send(result)
