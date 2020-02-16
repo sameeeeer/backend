@@ -17,6 +17,8 @@ router.post('/register', (req, response) => { // /registraion url path (req)-> a
     })
 })
 
+
+
 router.post("/login", async function (req, res) {
 
     const user = await User.checkCrediantialsDb(req.body.email,

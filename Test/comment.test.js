@@ -14,6 +14,7 @@ describe(' Testing of Contact Schema', () => {
     it(' Testing of Adding Contact', () => {
         const savepost = {
             'user_id': '5e44def6d69dbe0860bddfa3',
+            'comment':"wow nice",
             'post_id': '5e483483d801b0073491328b'
 
            

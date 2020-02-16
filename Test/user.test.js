@@ -15,7 +15,7 @@ describe(' Testing of User Schema', () => {
         const user = {
             'name': 'Sameer karki',
             'email': 'sameer@gmail.com',
-            'password': '12345'
+            'password': 'sam00sau35'
         };
 
         return User.create(user)
@@ -29,9 +29,4 @@ it('Testing of User Deletion', async() => {
     expect(status.ok).toBe(1);
     
 });
-it('Testing of Updating User', async () => {
-    return User.findOneAndUpdate({ "_id": "5d2451c6dc233e52946015d7" }, { $set: { Fname: 'Changed' } })
-        .then((uu) => {
-            expect(uu.Fname).toEqual('Changed')
-        })
-});
+
